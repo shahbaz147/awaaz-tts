@@ -5,21 +5,17 @@ cd /d "%~dp0"
 echo [1/3] Removing .python-version locally...
 if exist ".python-version" del /f /q ".python-version"
 
-echo [2/3] Erasing cached GitHub credentials...
-(
-echo protocol=https
-echo host=github.com
-) | git credential reject
-
-echo [3/3] Setting remote to https://shahbaz147@github.com/shahbaz147/awaaz-tts.git...
-git remote set-url origin https://shahbaz147@github.com/shahbaz147/awaaz-tts.git
-
+echo [2/3] Preparing clean Vercel deployment...
 git rm --cached .python-version >nul 2>&1
 git add -A
-git commit -m "Remove .python-version" >nul 2>&1
+git commit -m "Configure Vercel serverless with full Edge-TTS and all Pakistani voices" >nul 2>&1
 
-echo.
-echo Pushing as shahbaz147...
+echo [3/3] Pushing to https://github.com/shahbaz147/awaaz-tts...
 git push -u origin main
 
+echo.
+echo ========================================================
+echo Code successfully pushed to GitHub!
+echo Vercel will now automatically rebuild.
+echo ========================================================
 pause
