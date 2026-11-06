@@ -10,8 +10,8 @@ app = Flask(__name__)
 # Enable CORS for all routes so mobile apps and web clients can access without restrictions
 CORS(app)
 
-# Default voice requested
-DEFAULT_VOICE = "en-US-AndrewNeural"
+# Default voice requested (Ava is Microsoft's most natural human conversational voice)
+DEFAULT_VOICE = "en-US-AvaNeural"
 
 # Supported Pakistani native & regional languages voice catalog
 PAKISTANI_VOICES = {
@@ -118,10 +118,10 @@ PAKISTANI_VOICES = {
         "description": "Bengali - বাংলা"
     },
     "english_us": {
-        "female": "en-US-AriaNeural",
+        "female": "en-US-AvaNeural",
         "male": "en-US-AndrewNeural",
-        "default": "en-US-AndrewNeural",
-        "description": "English (US) - Default"
+        "default": "en-US-AvaNeural",
+        "description": "English (US) - Ultra Human"
     }
 }
 
@@ -157,6 +157,9 @@ def resolve_voice(text: str, requested_voice: str = None, requested_lang: str = 
         selected_gender = "male" if gender and gender.lower() == "male" else "female"
 
         if lang_key in ("ur", "urdu", "pk", "ur-pk"):
+            if not ARABIC_URDU_SCRIPT_REGEX.search(text):
+                # Text is in English script; use natural Pakistani English accent
+                return PAKISTANI_VOICES["english_pk"].get(selected_gender, PAKISTANI_VOICES["english_pk"]["default"])
             return PAKISTANI_VOICES["urdu"].get(selected_gender, PAKISTANI_VOICES["urdu"]["default"])
         elif lang_key in ("pa", "punjabi", "panjabi", "pa-in", "pa-pk"):
             # Pakistani Punjabi is written in Shahmukhi (Urdu script) -> use Pakistani Urdu voice
