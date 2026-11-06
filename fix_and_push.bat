@@ -10,8 +10,8 @@ git rm --cached .python-version >nul 2>&1
 git add -A
 git commit -m "Configure Vercel serverless with full Edge-TTS and all Pakistani voices" >nul 2>&1
 
-echo [3/3] Pushing to https://github.com/shahbaz147/awaaz-tts...
-git push -u origin main
+echo [3/3] Pushing to https://github.com/shahbaz147/awaaz-tts with force...
+git push -u origin main --force
 
 echo.
 echo ========================================================
