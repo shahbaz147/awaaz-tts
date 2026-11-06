@@ -8,7 +8,7 @@ if exist ".python-version" del /f /q ".python-version"
 echo [2/3] Preparing clean Vercel deployment...
 git rm --cached .python-version >nul 2>&1
 git add -A
-git commit -m "Configure Vercel serverless with full Edge-TTS and all Pakistani voices" >nul 2>&1
+git commit -m "Streamline 5 core languages with instant GET streaming and CDN cache" >nul 2>&1
 
 echo [3/3] Pushing to https://github.com/shahbaz147/awaaz-tts with force...
 git push -u origin main --force
