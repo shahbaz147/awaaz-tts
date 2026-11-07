@@ -189,12 +189,14 @@ def synthesize():
             except Exception:
                 raise synth_err
 
+        audio_bytes = audio_buffer.getvalue()
         response = send_file(
-            audio_buffer,
+            io.BytesIO(audio_bytes),
             mimetype="audio/mpeg",
             as_attachment=False,
             download_name="speech.mp3"
         )
+        response.headers["Content-Length"] = str(len(audio_bytes))
         response.headers["Accept-Ranges"] = "bytes"
         response.headers["X-Voice-Used"] = selected_voice
         response.headers["Cache-Control"] = "public, max-age=86400, s-maxage=86400"
