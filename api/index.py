@@ -95,6 +95,8 @@ def resolve_voice(text: str, requested_voice: str = None, requested_lang: str = 
         elif lang_key in ("bn", "bengali", "bangali", "bn-bd", "bn-in"):
             return SUPPORTED_VOICES["bengali"].get(selected_gender, SUPPORTED_VOICES["bengali"]["default"])
         elif lang_key in ("en", "english", "en-us", "en-pk"):
+            if ARABIC_URDU_SCRIPT_REGEX.search(text):
+                return SUPPORTED_VOICES["urdu"].get(selected_gender, SUPPORTED_VOICES["urdu"]["default"])
             return SUPPORTED_VOICES["english"].get(selected_gender, DEFAULT_VOICE)
 
     return get_script_fallback_voice(text)
